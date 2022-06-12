@@ -16,6 +16,7 @@
  */
 import * as posenet from "@tensorflow-models/posenet";
 import * as tf from "@tensorflow/tfjs";
+// import {key} from "yarn/lib/cli";
 
 const keyPointsColor = "red";
 const skeletonColor = "blue";
@@ -105,6 +106,7 @@ export function drawSegment([ay, ax], [by, bx], color, scale, ctx) {
  * Draws a pose skeleton by looking up all adjacent keypoints/joints
  */
 export function drawSkeleton(keypoints, minConfidence, ctx, scale = 1) {
+  console.log("starting Draw skeleton")
   const adjacentKeyPoints = posenet.getAdjacentKeyPoints(
     keypoints,
     minConfidence
@@ -124,15 +126,27 @@ export function drawSkeleton(keypoints, minConfidence, ctx, scale = 1) {
 /**
  * Draw pose keypoints onto a canvas
  */
-export function drawKeypoints(keypoints, minConfidence, ctx, scale = 1) {
+export function drawKeypoints(keypoints, minConfidence, ctx, scale = 1, modelType) {
+  console.log("starting Draw Keypoints")
+  // console.log(keypoints)
   for (let i = 0; i < keypoints.length; i++) {
     const keypoint = keypoints[i];
+    // console.log(keypoint)
 
     if (keypoint.score < minConfidence) {
       continue;
     }
-
-    const { y, x } = keypoint.position;
+    let x, y;
+    if (modelType === "Movenet") {
+       x = keypoint.x
+       y = keypoint.y
+    }
+    else
+    {
+        y  = keypoint.position[0];
+        x  = keypoint.position[1];
+    }
+    // const { y, x } = keypoint.position;
     drawPoint(ctx, y * scale, x * scale, 3, keyPointsColor);
   }
 }

@@ -1,6 +1,5 @@
 
 import '../App.css';
-import * as tf from "@tensorflow/tfjs";
 import * as posenet from "@tensorflow-models/posenet";
 import Webcam from "react-webcam";
 import {useRef, useState} from "react";
@@ -52,9 +51,9 @@ function PoseNet() {
         const ctx = canvas.current.getContext("2d");
         canvas.current.width = videoWidth;
         canvas.current.height = videoHeight;
-
-        drawKeypoints(pose["keypoints"], 0.6, ctx);
-        drawSkeleton(pose["keypoints"], 0.7, ctx);
+        const modelType = "Posenet"
+        drawKeypoints(pose["keypoints"], 0.6, ctx, 1, modelType);
+        drawSkeleton(pose["keypoints"], 0.7, ctx, 1, modelType);
     };
     const startExercise = () => {
         setState((prev) => ({
