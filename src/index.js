@@ -1,18 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import {BrowserRouter as Router} from 'react-router-dom';
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import MoveNet from "./pages/MoveNet";
+import PoseNet from "./pages/PoseNet";
+import Layout from "./pages/Layout";
+
+export default function App() {
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Layout />}>
+                    <Route path="poseNet" element={<PoseNet />} />
+                    <Route path="moveNet" element={<MoveNet />} />
+                </Route>
+            </Routes>
+        </BrowserRouter>
+    );
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-    <Router>
-        <App />
-    </Router>
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+root.render(<App />);

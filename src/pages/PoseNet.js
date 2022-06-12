@@ -1,13 +1,13 @@
 
-import './App.css';
+import '../App.css';
 import * as tf from "@tensorflow/tfjs";
 import * as posenet from "@tensorflow-models/posenet";
 import Webcam from "react-webcam";
 import {useRef, useState} from "react";
-import {drawKeypoints, drawSkeleton} from "./utilities";
+import {drawKeypoints, drawSkeleton} from "../utilities";
 
 
-function App() {
+function PoseNet() {
     const webcamRef = useRef(null)
     const canvasRef = useRef(null)
     const initialState = {
@@ -125,4 +125,4 @@ function App() {
     );
 }
 
-export default App;
+export default PoseNet;
